@@ -39,7 +39,6 @@ document.addEventListener('keydown', function (e) {
 /*
 ///////////////////////////////////////
 /////// Selecting, Creating, and Deleting Elements
-*/
 
 /////// Selecting elements
 console.log(document.documentElement);
@@ -57,3 +56,27 @@ const allButtons = document.getElementsByTagName('button');
 console.log(allButtons);
 
 console.log(document.getElementsByClassName('btn'));
+
+
+*/
+//////// Creating and inserting elements
+// .insertAdjaventHTML
+const header = document.querySelector('.header');
+const message = document.createElement('div');
+message.classList.add('cookie-message');
+
+message.textContent = 'We use cookied for improved functionality and analytics.';
+message.innerHTML = 'We use cookied for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+
+// header.prepend(message); // prepend inserts nodes before the first child of node (before the header)
+header.append(message); // " after the last child
+// header.append(message.cloneNode(true));
+
+// header.before(message);
+// header.after(message);
+
+// Delete elements
+document.querySelector('.btn--close-cookie').addEventListener('click', function () {
+    // message.remove(); // recent include in js
+    message.parentElement.removeChild(message);
+});
