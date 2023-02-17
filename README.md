@@ -1,2 +1,3 @@
-# Bank-Y-Corp.
+# BANKIST
+
 Bank Web site
