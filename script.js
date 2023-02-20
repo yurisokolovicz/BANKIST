@@ -4,8 +4,6 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
-const btnScrollTo = document.querySelector('.btn--scroll-to');
-const section1 = document.querySelector('#section--1');
 
 ///////////////////////////////////////
 // Modal window
@@ -35,6 +33,8 @@ document.addEventListener('keydown', function (e) {
 });
 
 ///////////// Implementing Smooth Scrolling
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
 btnScrollTo.addEventListener('click', function (e) {
     section1.scrollIntoView({ behavior: 'smooth' });
@@ -66,6 +66,30 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
         // console.log(id);
         document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
     }
+});
+
+////////////////// Tablet Component
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+
+// tabs.forEach(t => t.addEventListener('click', () => console.log('TAB'))); // not good, needs one per copy (slow down the page - need to use event delegations)
+
+tabsContainer.addEventListener('click', function (e) {
+    const clicked = e.target.closest('.operations__tab');
+
+    // Guard clause - ignore clicks around - if click outside around return the function before insert the region in the operations__tab--active. Javascript will not execute the "tabs.forEach(t => t.classList.remove('operations__tab--active')); and clicked.classList.add('operations__tab--active');" because the function was ended in the return"
+    if (!clicked) return;
+
+    // Remove active classes
+    tabs.forEach(t => t.classList.remove('operations__tab--active'));
+    tabsContent.forEach(c => c.classList.remove('operations__content--active'));
+
+    // Active tab
+    clicked.classList.add('operations__tab--active');
+
+    // Activate content area
+    document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
 });
 
 ///////////////////////////////////////
