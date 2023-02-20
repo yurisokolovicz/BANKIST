@@ -68,7 +68,8 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     }
 });
 
-////////////////// Tablet Component
+///////////////////////////////////////
+///////////// Tablet Component
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
@@ -91,6 +92,30 @@ tabsContainer.addEventListener('click', function (e) {
     // Activate content area
     document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
 });
+
+///////////////////////////////////////
+///////////// Menu Fade animation
+
+const nav = document.querySelector('.nav'); // Selecting and Store the element
+
+const handleHover = function (e) {
+    if (e.target.classList.contains('nav__link')) {
+        const link = e.target;
+        const siblings = link.closest('.nav').querySelectorAll('.nav__link');
+        const logo = link.closest('.nav').querySelector('img');
+
+        siblings.forEach(el => {
+            if (el !== link) el.style.opacity = this;
+        });
+        logo.style.opacity = this;
+    }
+};
+
+///////////// Passing "argument into handler"
+// Attach the eventListener to the .nav / mouseover does bubbling
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+// mouseout is to undo the changes did by nmouseover
+nav.addEventListener('mouseout', handleHover.bind(1));
 
 ///////////////////////////////////////
 ///////////////////////////////////////
