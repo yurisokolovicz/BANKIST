@@ -1,12 +1,14 @@
 'use strict';
 
-///////////////////////////////////////
-// Modal window
-
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+///////////////////////////////////////
+// Modal window
 
 const openModal = function (e) {
     e.preventDefault();
@@ -29,6 +31,40 @@ overlay.addEventListener('click', closeModal);
 document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
         closeModal();
+    }
+});
+
+///////////// Implementing Smooth Scrolling
+
+btnScrollTo.addEventListener('click', function (e) {
+    section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+///////////////////////////////////////
+/////////// Page Navigation
+// If the website is not to big can use this method, if it is big a lot of this copy can affect the performance
+// document.querySelectorAll('.nav__link').forEach(function (el) {
+//     el.addEventListener('click', function (e) {
+//         e.preventDefault();
+//         const id = this.getAttribute('href');
+//         console.log(id);
+//         document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+//     });
+// });
+
+///////// Event Delegation - More efficient
+// 1. Add event listener to common parent element
+// 2. Determine which element originated the event
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+    // console.log(e.target);
+    e.preventDefault();
+
+    // Matching strategy - we want to ignore clicks outside the links
+    if (e.target.classList.contains('nav__link')) {
+        const id = e.target.getAttribute('href');
+        // console.log(id);
+        document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
     }
 });
 
@@ -129,7 +165,6 @@ logo.classList.contains('c'); // not includes
 // Don't use
 logo.clasName = 'jonas';
 
-*/
 
 ///////////// Implementing Smooth Scrolling
 const btnScrollTo = document.querySelector('.btn--scroll-to');
@@ -158,7 +193,7 @@ btnScrollTo.addEventListener('click', function (e) {
     // });
 });
 
-/*
+
 ///////////////////////////////////////
 // Types of Events and Event Handlers
 const h1 = document.querySelector('h1');
@@ -174,7 +209,7 @@ setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
 // h1.onmouseenter = function (e) {
 //   alert('onmouseenter: Great! You are reading the heading :D');
 // };
-*/
+
 
 ///////////////////////////////////////
 // Event Propagation in Practice
@@ -205,3 +240,6 @@ document.querySelector('.nav').addEventListener(
     }
     // true // using True is now set to Capture mode (remember the bubbling is the standard (withou true))
 );
+
+
+*/
