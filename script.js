@@ -175,3 +175,33 @@ setTimeout(() => h1.removeEventListener('mouseenter', alertH1), 3000);
 //   alert('onmouseenter: Great! You are reading the heading :D');
 // };
 */
+
+///////////////////////////////////////
+// Event Propagation in Practice
+// rgb(255,255,255)
+const randomInt = (min, max) => Math.floor(Math.random() * (max - min + 1) + min); // formula to generate a random integers
+const randomColor = () => `rgb(${randomInt(0, 255)},${randomInt(0, 255)},${randomInt(0, 255)})`; // create a random color
+
+// The standard is bubbling
+document.querySelector('.nav__link').addEventListener('click', function (e) {
+    this.style.backgroundColor = randomColor(); // this reports to document.querySelector('.nav__link')
+    console.log('LINK', e.target, e.currentTarget);
+    console.log(e.currentTarget === this); // true, it mean e.currentTarget and this are always the same in any eventHandler
+
+    // Stop propagation - can fix problems
+    // e.stopPropagation();
+});
+
+document.querySelector('.nav__links').addEventListener('click', function (e) {
+    this.style.backgroundColor = randomColor();
+    console.log('CONTAINER', e.target, e.currentTarget);
+});
+
+document.querySelector('.nav').addEventListener(
+    'click',
+    function (e) {
+        this.style.backgroundColor = randomColor();
+        console.log('NAV', e.target, e.currentTarget);
+    }
+    // true // using True is now set to Capture mode (remember the bubbling is the standard (withou true))
+);
