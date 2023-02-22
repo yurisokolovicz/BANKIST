@@ -117,16 +117,27 @@ nav.addEventListener('mouseover', handleHover.bind(0.5));
 // mouseout is to undo the changes did by nmouseover
 nav.addEventListener('mouseout', handleHover.bind(1));
 
-///////////// Sticky navigation - this is not good for performance
-const initialCoords = section1.getBoundingClientRect();
-// console.log(initialCoords);
+///////////// Sticky navigation: Intersection Observer API
 
-window.addEventListener('scroll', function (e) {
-    // console.log(this.window.scrollY);
+const header = document.querySelector('.header');
+const navHeight = nav.getBoundingClientRect().height;
+// console.log(navHeight);
 
-    if (this.window.scrollY > initialCoords.top) nav.classList.add('sticky');
+const stickyNav = function (entries) {
+    const [entry] = entries;
+    // console.log(entry);
+
+    // If intersecting is false, do this.
+    if (!entry.isIntersecting) nav.classList.add('sticky');
     else nav.classList.remove('sticky');
+};
+
+const headerObserver = new IntersectionObserver(stickyNav, {
+    root: null, // interested in the entire viewport
+    threshold: 0, // when 0% of the header is visible we want something to happen
+    rootMargin: `-${navHeight}px`
 });
+headerObserver.observe(header);
 
 ///////////////////////////////////////
 ///////////////////////////////////////
@@ -332,5 +343,33 @@ console.log(h1.parentElement.children);
 [...h1.parentElement.children].forEach(function (el) {
     if (el !== h1) el.style.transform = 'scale(0.5)';
 });
+
+///////////// Sticky navigation - this is not good for performance
+const initialCoords = section1.getBoundingClientRect();
+// console.log(initialCoords);
+
+window.addEventListener('scroll', function (e) {
+    // console.log(this.window.scrollY);
+
+    if (this.window.scrollY > initialCoords.top) nav.classList.add('sticky');
+    else nav.classList.remove('sticky');
+});
+
+///////////// Sticky navigation: Intersection Observer API
+
+// const obsCallback = function (entries, observer) {
+//     // this callbacl function will get called each time that the observed element (section 1) is intersecting the root element at the threshold that we defined.
+//     entries.forEach(entry => {
+//         console.log(entry);
+//     });
+// };
+
+// const obsOptions = {
+//     root: null,
+//     threshold: [0, 0.2]
+// };
+
+// const observer = new IntersectionObserver(obsCallback, obsOptions);
+// observer.observe(section1);
 
 */
