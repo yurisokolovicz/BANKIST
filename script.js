@@ -144,7 +144,7 @@ const allSections = document.querySelectorAll('.section');
 
 const revealSection = function (entries, observer) {
     const [entry] = entries;
-    console.log(entry);
+    // console.log(entry);
 
     if (!entry.isIntersecting) return;
 
@@ -160,6 +160,34 @@ allSections.forEach(function (section) {
     sectionObserver.observe(section);
     section.classList.add('section--hidden');
 });
+
+///////////// Lazy Loading Images - Very Very good for performance
+// To select all the images with data-src properties.
+const imgTargets = document.querySelectorAll('img[data-src]');
+
+const loadImg = function (entries, observer) {
+    const [entry] = entries;
+    // console.log(entry);
+
+    if (!entry.isIntersecting) return;
+
+    // Replace src with data-src
+    entry.target.src = entry.target.dataset.src;
+
+    entry.target.addEventListener('load', function () {
+        entry.target.classList.remove('lazy-img'); // will remove blur only after good image is uploaded
+
+        observer.unobserve(entry.target);
+    });
+};
+
+const imgObserver = new IntersectionObserver(loadImg, {
+    root: null,
+    threshold: 0,
+    rootMargin: '-200px' // remove the blur the images 200px after we reach the images
+});
+
+imgTargets.forEach(img => imgObserver.observe(img));
 
 ///////////////////////////////////////
 ///////////////////////////////////////
