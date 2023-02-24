@@ -158,7 +158,7 @@ const sectionObserver = new IntersectionObserver(revealSection, {
 });
 allSections.forEach(function (section) {
     sectionObserver.observe(section);
-    // section.classList.add('section--hidden'); //######## DONT FORGET TO REMOVE!
+    section.classList.add('section--hidden'); //######## DONT FORGET TO REMOVE!
 });
 
 ///////////// Lazy Loading Images - Very Very good for performance
