@@ -5,9 +5,7 @@ const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 
-///////////////////////////////////////
 // Modal window
-
 const openModal = function (e) {
     e.preventDefault();
     modal.classList.remove('hidden');
@@ -32,7 +30,7 @@ document.addEventListener('keydown', function (e) {
     }
 });
 
-///////////// Implementing Smooth Scrolling
+/////////// Implementing Smooth Scrolling
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
 
@@ -40,9 +38,7 @@ btnScrollTo.addEventListener('click', function (e) {
     section1.scrollIntoView({ behavior: 'smooth' });
 });
 
-///////////////////////////////////////
 /////////// Page Navigation
-
 document.querySelector('.nav__links').addEventListener('click', function (e) {
     // console.log(e.target);
     e.preventDefault();
@@ -55,7 +51,6 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
     }
 });
 
-///////////////////////////////////////
 ///////////// Tablet Component
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
@@ -77,9 +72,7 @@ tabsContainer.addEventListener('click', function (e) {
     document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
 });
 
-///////////////////////////////////////
 ///////////// Menu Fade animation
-
 const nav = document.querySelector('.nav'); // Selecting and Store the element
 
 const handleHover = function (e) {
